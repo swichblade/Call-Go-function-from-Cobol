@@ -6,6 +6,9 @@ Using Gnucobol
 From Ubuntu:
 
 $ go build -buildmode=c-shared -o functions.so functions.go
+
 $ export COB_PRE_LOAD=functions
+
 $ cobc -x cobmain.cob
+
 $ ./cobmain
