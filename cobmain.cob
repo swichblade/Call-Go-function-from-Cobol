@@ -24,4 +24,15 @@
        display arg2
        display arg3
        display arg4
+
+       CALL "JsonExample" USING BY reference arg1
+                            BY reference arg2
+                            BY reference arg3
+                            BY reference arg4
+       END-CALL
+
+       display arg1
+       display arg2
+       display arg3
+       display arg4
        EXIT PROGRAM.
