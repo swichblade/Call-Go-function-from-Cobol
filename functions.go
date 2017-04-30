@@ -7,6 +7,48 @@ import "encoding/json"
 //#include <stdio.h>
 import "C"
 
+type TestItem struct {
+	Id	int
+	Name	string
+	Phone	string
+}
+
+var slicetestStrings []TestItem
+var currentslice TestItem
+
+//export SelectSliceAtIndex
+func SelectSliceAtIndex(i int){ 
+   currentslice = slicetestStrings[i]
+   fmt.Println(currentslice)   
+}
+
+
+//export SelectIdAtIndex
+func SelectIdAtIndex(i int) int{
+   fmt.Println(slicetestStrings[i].Id)
+   return slicetestStrings[i].Id 
+
+}
+
+//export PrintSlice
+func PrintSlice(){
+  fmt.Println(slicetestStrings)
+  fmt.Println(currentslice)
+}
+
+//export getSliceAttribute
+func getSliceAttribute(idptr *C.int, name *C.char, phone *C.char){
+    *idptr = C.int(currentslice.Id)
+    C.strcpy(name,C.CString(currentslice.Name))
+    C.strcpy(phone,C.CString(currentslice.Phone))
+}
+
+//export AppendSlice
+func AppendSlice(iptr C.int,str2 *C.char,str3 *C.char){
+   tmp := TestItem{iptr,C.GoStringN(str2, 6),C.GoStringN(str3, 6)}
+   slicetestStrings = append(slicetestStrings,tmp)
+}
+
 
 //export zeroptr
 func zeroptr(iptr *C.int, dptr *C.double, fptr *C.float, str *C.char) {
